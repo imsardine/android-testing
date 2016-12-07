@@ -31,6 +31,8 @@ import android.widget.TextView;
  */
 public class MainActivity extends Activity implements View.OnClickListener {
 
+    private static int PROCESSING_TIME = 200; // ms
+
     // The TextView used to display the message inside the Activity.
     private TextView mTextView;
 
@@ -71,7 +73,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         protected String doInBackground(String... texts) {
             try {
-                Thread.sleep(20000);
+                Thread.sleep(PROCESSING_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -91,7 +93,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         public String doInBackground(String... texts) {
             try {
-                Thread.sleep(20000);
+                Thread.sleep(PROCESSING_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
