@@ -18,6 +18,7 @@ package com.example.android.testing.espresso.BasicSample;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -42,8 +43,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         // Set the listeners for the buttons.
-        findViewById(R.id.changeTextBt).setOnClickListener(this);
-        findViewById(R.id.activityChangeTextBtn).setOnClickListener(this);
+        findViewById(R.id.changeTextAsyncTaskBtn).setOnClickListener(this);
+        findViewById(R.id.changeTextUserTaskBtn).setOnClickListener(this);
 
         mTextView = (TextView) findViewById(R.id.textToBeChanged);
         mEditText = (EditText) findViewById(R.id.editTextUserInput);
@@ -55,15 +56,54 @@ public class MainActivity extends Activity implements View.OnClickListener {
         final String text = mEditText.getText().toString();
 
         switch (view.getId()) {
-            case R.id.changeTextBt:
+            case R.id.changeTextAsyncTaskBtn:
                 // First button's interaction: set a text in a text view.
-                mTextView.setText(text);
+                new ChangeTextAsyncTask().execute(text);
                 break;
-            case R.id.activityChangeTextBtn:
-                // Second button's interaction: start an activity and send a message to it.
-                Intent intent = ShowTextActivity.newStartIntent(this, text);
-                startActivity(intent);
+            case R.id.changeTextUserTaskBtn:
+                new ChangeTextUserTask().execute(text);
                 break;
         }
     }
+
+    private class ChangeTextAsyncTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... texts) {
+            try {
+                Thread.sleep(20000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return texts[0];
+        }
+
+        @Override
+        protected void onPostExecute(String text) {
+            mTextView.setText(text);
+        }
+
+    }
+
+    private class ChangeTextUserTask extends UserTask<String, Void, String> {
+
+        @Override
+        public String doInBackground(String... texts) {
+            try {
+                Thread.sleep(20000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return texts[0];
+        }
+
+        @Override
+        public void onPostExecute(String text) {
+            mTextView.setText(text);
+        }
+
+    }
+
 }

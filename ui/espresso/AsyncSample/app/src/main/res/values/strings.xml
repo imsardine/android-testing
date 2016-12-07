@@ -17,7 +17,7 @@
 <resources>
     <string name="app_name">Basic Espresso sample</string>
     <string name="hello_world">Hello Espresso!</string>
-    <string name="change_text">Change text</string>
+    <string name="change_text_asynctask">Change text (AsyncTask)</string>
     <string name="type_something">type something…</string>
-    <string name="open_activity_and_change_text">Open activity and change text</string>
+    <string name="change_text_usertask">Change text (UserTask)</string>
 </resources>
